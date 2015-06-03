@@ -47,10 +47,10 @@ angular.module('angular-medium-editor', [])
 
             // If user cleared the whole text, we have to reset the editor because MediumEditor
             // lacks an API method to alter placeholder after initialization
-            if (iElement.html() === '<p><br></p>' || iElement.html() === '') {
-              opts.placeholder = placeholder;
-              var editor = new MediumEditor(iElement, opts);
-            }
+            // if (iElement.html() === '<p><br></p>' || iElement.html() === '') {
+            //   opts.placeholder = placeholder;
+            //   var editor = new MediumEditor(iElement, opts);
+            // }
 
             ctrl.$setViewValue(iElement.html());
           });
@@ -73,9 +73,9 @@ angular.module('angular-medium-editor', [])
           }
 
           iElement.html(ctrl.$isEmpty(ctrl.$viewValue) ? '' : ctrl.$viewValue);
-          
+
           // hide placeholder when view is not empty
-          if(!ctrl.$isEmpty(ctrl.$viewValue)) angular.element(iElement).removeClass('medium-editor-placeholder'); 
+          if(!ctrl.$isEmpty(ctrl.$viewValue)) angular.element(iElement).removeClass('medium-editor-placeholder');
         };
 
       }
