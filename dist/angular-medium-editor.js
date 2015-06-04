@@ -2,7 +2,7 @@
 
 angular.module('angular-medium-editor', [])
 
-  .directive('mediumEditor', function() {
+  .directive('mediumEditor', ['$timeout', function($timeout) {
 
     return {
       require: 'ngModel',
@@ -42,17 +42,18 @@ angular.module('angular-medium-editor', [])
         });
 
         var onChange = function() {
+          $timeout(function() {
+            scope.$apply(function() {
 
-          scope.$apply(function() {
+              // If user cleared the whole text, we have to reset the editor because MediumEditor
+              // lacks an API method to alter placeholder after initialization
+              // if (iElement.html() === '<p><br></p>' || iElement.html() === '') {
+              //   opts.placeholder = placeholder;
+              //   var editor = new MediumEditor(iElement, opts);
+              // }
 
-            // If user cleared the whole text, we have to reset the editor because MediumEditor
-            // lacks an API method to alter placeholder after initialization
-            // if (iElement.html() === '<p><br></p>' || iElement.html() === '') {
-            //   opts.placeholder = placeholder;
-            //   var editor = new MediumEditor(iElement, opts);
-            // }
-
-            ctrl.$setViewValue(iElement.html());
+              ctrl.$setViewValue(iElement.html());
+            });
           });
         };
 
@@ -81,4 +82,4 @@ angular.module('angular-medium-editor', [])
       }
     };
 
-  });
+  }]);
